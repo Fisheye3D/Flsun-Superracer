@@ -1,7 +1,7 @@
 [server]
 host = 0.0.0.0
 port = 7125
-max_upload_size = 1024
+max_upload_size = 8024
 klippy_uds_address = ~/printer_data/comms/klippy.sock
 
 [file_manager]
@@ -47,6 +47,27 @@ path = ~/mainsail-config
 origin = https://github.com/mainsail-crew/mainsail-config.git
 managed_services = klipper
 
+[update_manager timelapse]
+type = git_repo
+primary_branch = main
+path = ~/moonraker-timelapse
+origin = https://github.com/mainsail-crew/moonraker-timelapse.git
+managed_services = klipper moonraker
+
+[timelapse]
+output_path = ~/printer_data/timelapse/
+frame_path = /tmp/timelapse/printer
+ffmpeg_binary_path = /usr/bin/ffmpeg
+enabled = True
+mode = layermacro
+snapshoturl = http://localhost:8080/?action=snapshot
+gcode_verbose = True
+parkhead = False
+autorender = True
+constant_rate_factor = 23
+output_framerate = 30
+time_format_code = %Y%m%d_%H%M
+
 [update_manager crowsnest]
 type = git_repo
 path = ~/crowsnest
@@ -61,6 +82,15 @@ origin = https://github.com/mainsail-crew/sonar.git
 primary_branch = main
 managed_services = sonar
 install_script = tools/install.sh
+
+[update_manager KlipperScreen]
+type = git_repo
+path = ~/KlipperScreen
+origin = https://github.com/KlipperScreen/KlipperScreen.git
+virtualenv = ~/.KlipperScreen-env
+requirements = scripts/KlipperScreen-requirements.txt
+system_dependencies = scripts/system-dependencies.json
+managed_services = KlipperScreen
 
 [update_manager moonraker-obico]
 type = git_repo
